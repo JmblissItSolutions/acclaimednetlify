@@ -53,6 +53,7 @@ const CheckOut = () => {
     const [couponresult, setCouponresult] = useState([]);
     const [applyresult, setApplyresult] = useState([]);
     const [showme, setShowme] = useState(0);
+    const [pay, setPay] = useState(false);
 
     const siteURL = (APIUrl.defaults.baseURL)
 
@@ -67,6 +68,7 @@ const CheckOut = () => {
     }, []);
     const [result, setResult] = useState([]);
     function saveData() {
+        setPay(true)
         setLoading(true)
         let data = { firstname, lastname, company, country, street1, street2, city, state, pincode, phone, email, prop_street1, prop_street2, prop_city, prop_state, prop_zipcode, order_notes, subtotal, total, pay_method, status }
         fetch(`${siteURL}create_checkout`, {
@@ -88,12 +90,12 @@ const CheckOut = () => {
                         })
                     }
                     setLoading(false)
+                    setPay(false)
                 })
 
             })
 
     }
-    console.log(result, 'result')
     let resultMsg = (result.message)
     let orderid = (result.order_id)
     let res = (result.result)
@@ -304,9 +306,6 @@ const CheckOut = () => {
                 })
             })
     }
-    if (res) {
-        AppyCoupon()
-    }
     const [cc_number, setcc_number] = useState("");
     const [expiry_month, setexpiry_month] = useState("");
     const [expiry_year, setexpiry_year] = useState("");
@@ -324,23 +323,35 @@ const CheckOut = () => {
         })
             .then((resp) => {
                 resp.json().then((res) => {
-                    if (res.result == true) {
+                   
                         setPaymentresult(res);
-                    }
+
                 })
             })
         let res = false
     }
     let payres = (paymentresult.result)
     let paymsg = (paymentresult.message)
-    if (res) {
-        saveProduct()
-        paymentData()
-    }
+    // if (res) {
+    //     saveProduct()
+    //     paymentData()
+    // }
+    useEffect(() => {
+        if (res) {
+            saveProduct()
+            AppyCoupon()
+        }
+      }, [res]);
+
+      useEffect(() => {
+        if(pay && res){
+            paymentData() 
+        } 
+    }, [saveData]);
     function RedirectInvoice() {
         history.push("/homeowner-plans/checkout/order-received")
     }
-    if (res == true) {
+    if (payres) {
         RedirectInvoice()
     }
     function disablebtn() {
@@ -380,7 +391,7 @@ const CheckOut = () => {
                         <h1>Checkout</h1>
                         <div className="shop-text">
                             <p>You dont have any product in  your cart please click on this button</p>
-                            <button className="btn" onClick={() => history.push("/home-plans")}>Return to shop</button>
+                            <button className="btn" onClick={() => history.push("/order-now")}>Return to shop</button>
                         </div>
                     </div>
                 </div>
@@ -427,8 +438,9 @@ const CheckOut = () => {
                                         </p>
                                     </form> : null}
                             </div>
-                            <p className="error-msg">{resultMsg}</p>
-                            {res == false ? <p className="error-msg">{res}</p> : null}
+                            {/* <p className="error-msg">{resultMsg}</p> */}
+                            {payres == false ? <p className="error-msg">{paymsg == "Undefined variable: isPaymentExist" ? null :{paymsg}}</p> : null}
+                            {res == false ? <p className="error-msg">{resultMsg}</p> : null}
                             <form className="checkout woocommerce-checkout">
                                 <div className="col2-set">
                                     <div className="col-1">
