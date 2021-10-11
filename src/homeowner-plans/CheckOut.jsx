@@ -324,8 +324,8 @@ const CheckOut = () => {
             .then((resp) => {
                 resp.json().then((res) => {
                    
-                        setPaymentresult(res);
-
+                        setPaymentresult(res);  
+                                    
                 })
             })
         let res = false
@@ -439,7 +439,7 @@ const CheckOut = () => {
                                     </form> : null}
                             </div>
                             {/* <p className="error-msg">{resultMsg}</p> */}
-                            {payres == false ? <p className="error-msg">{paymsg == "Undefined variable: isPaymentExist" ? null :{paymsg}}</p> : null}
+                            {payres == false ? <p className="error-msg">{paymsg == "Undefined variable: isPaymentExist" ? null :paymsg }</p> : null}
                             {res == false ? <p className="error-msg">{resultMsg}</p> : null}
                             <form className="checkout woocommerce-checkout">
                                 <div className="col2-set">
@@ -687,7 +687,7 @@ const CheckOut = () => {
                                                                 </select>
                                                                 <select className="yearselect" value={expiry_year} onChange={(e) => { setexpiry_year(e.target.value) }}>
                                                                     <option value=""></option>
-                                                                    <option value="2021">2021</option>
+                                                                    <option value="2020">2020</option>
                                                                     <option value="2022">2022</option>
                                                                     <option value="2023">2023</option>
                                                                     <option value="2024">2024</option>
