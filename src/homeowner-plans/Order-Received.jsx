@@ -4,7 +4,7 @@ import axios from 'axios';
 import APIUrl from "../Api"
 import { Helmet } from "react-helmet";
 import Checkoutbg from "../assets/images/Checkoutbg.png";
-import { ItemImage } from 'semantic-ui-react';
+
 
 const OrderReceived = () => {
     let history = useHistory();
@@ -34,7 +34,6 @@ const OrderReceived = () => {
                 setTodo(data);
             });
     }, [id]);
-    localStorage.removeItem('cart');
     return (
         <>
             <Helmet>
@@ -45,7 +44,7 @@ const OrderReceived = () => {
                 <section className="top-image">
                     <img src={Checkoutbg} alt="Checkoutbg" />
                 </section>
-                {orderId != "undefined" ? 
+                {orderId ? 
                 <div className="container">
                     <div className="checkout_ttl">
                         <h1>Checkout</h1>
@@ -170,7 +169,7 @@ const OrderReceived = () => {
                             </div>
                         }
                     </div>
-                </div> : 
+                </div>: 
                 <div className="container">
                 <div className="shop_ttl">
                     <h1>Order Received</h1>

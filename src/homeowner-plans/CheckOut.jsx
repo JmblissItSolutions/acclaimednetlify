@@ -71,6 +71,7 @@ const CheckOut = () => {
         setPay(true)
         setLoading(true)
         let data = { firstname, lastname, company, country, street1, street2, city, state, pincode, phone, email, prop_street1, prop_street2, prop_city, prop_state, prop_zipcode, order_notes, subtotal, total, pay_method, status }
+        if (res !== true) {
         fetch(`${siteURL}create_checkout`, {
             method: "POST",
             headers: {
@@ -94,6 +95,7 @@ const CheckOut = () => {
                 })
 
             })
+        }
 
     }
     let resultMsg = (result.message)
@@ -439,7 +441,7 @@ const CheckOut = () => {
                                     </form> : null}
                             </div>
                             {/* <p className="error-msg">{resultMsg}</p> */}
-                            {payres == false ? <p className="error-msg">{paymsg == "Undefined variable: isPaymentExist" ? null :paymsg }</p> : null}
+                            {payres == false ? <p className="error-msg">{paymsg == "Undefined variable: isPaymentExist" ? null : paymsg }</p> : null}
                             {res == false ? <p className="error-msg">{resultMsg}</p> : null}
                             <form className="checkout woocommerce-checkout">
                                 <div className="col2-set">
@@ -641,8 +643,6 @@ const CheckOut = () => {
                                 <label><Radio.Group onChange={PaymentOption} value={pay_method}>
                                     <label><Radio value="card">card</Radio></label></Radio.Group></label>
                             </div>
-                            <p className="error-msg">{paymsg}</p>
-                            {paymentresult == false ? <p className="error-msg">{payres}</p> : null}
                             <div className="woocommerce-checkout-payment">
                                 <ul className="wc_payment_methods payment_methods methods">
                                     <li className={pay_method == "card" ? "wc_payment_method payment_method_authorize_net_aim showcard" : "hidecard"}>
