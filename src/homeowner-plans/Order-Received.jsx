@@ -34,6 +34,10 @@ const OrderReceived = () => {
                 setTodo(data);
             });
     }, [id]);
+    window.onunload = () => {
+        // Clear the local storage
+        window.localStorage.clear();
+     }
     return (
         <>
             <Helmet>
