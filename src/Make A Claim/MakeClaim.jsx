@@ -84,7 +84,7 @@ const MakeClaim = () => {
   function RedirectInvoice() {
     history.push("/make-a-claim/claim-submission")
   }
-
+ const [errmsg, seterr] = useState("")
   const [result, setResult] = useState([]);
   function claimData(e) {
     e.preventDefault();
@@ -119,7 +119,13 @@ const MakeClaim = () => {
         })
       })
     .catch(err => {
-      console.log(err.message)
+      seterr(err.message)
+      window.scrollTo({
+        top: 600,
+        left: 0,
+        behavior: 'smooth'
+      })
+      setLoading(false)
   })
   }
 
@@ -175,8 +181,9 @@ const MakeClaim = () => {
           </div>
           <div className="form-box-wrap">
             <h6>Otherwise, please tell us about the issue(s) by filling out the form below a service fee will be required.</h6>
-            <p className="contact-error-msg">{resultMsg}</p>
-            {res == false ? <p className="contact-error-msg">{res}</p> : null}
+            {resultMsg != "" ? <p className="contact-error-msg">{resultMsg}</p> : null }
+            {errmsg == "Failed to fetch" ? <p className="contact-error-msg">You Have Network Issue Please Check Your Internet Connection</p> : null}
+            {/* {res == false ? <p className="contact-error-msg">{res}</p> : null} */}
             <div className="form">
               <form>
                 <label><input type="text" placeholder="Name*" name="name" value={name} onChange={(e) => { setName(e.target.value) }} /></label>

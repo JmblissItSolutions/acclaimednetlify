@@ -109,7 +109,7 @@ const RealStateOrder = () => {
         if(property_type){
         ProductList()
         }
-    }, [state_id, property_type, squarevalue, constructionvalue]);
+    }, [state_id, property_type, cov_type_id, squarevalue, constructionvalue]);
 
     function allprices() {
         if (prores) {
