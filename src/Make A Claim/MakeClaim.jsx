@@ -88,7 +88,7 @@ const MakeClaim = () => {
   const [result, setResult] = useState([]);
   function claimData(e) {
     e.preventDefault();
-    try {
+    
     setLoading(true)
     let data = { name, phone, email, street_address, city, state, zip_code, emergency, contact_method, technicians, claim_details, appliances, other, other_appliances }
     fetch(`${siteURL}MakeaClaim`, {
@@ -118,9 +118,9 @@ const MakeClaim = () => {
           setLoading(false)
         })
       })
-    } catch (error) {
-      throw error;
-  }
+    .catch(err => {
+      console.log(err.message)
+  })
   }
 
   let resultMsg = (result.message)
