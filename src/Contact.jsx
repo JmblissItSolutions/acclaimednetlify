@@ -17,6 +17,12 @@ const Contact = () => {
   const showmsg = () => {
     setShowtext(!showtext);
   }
+
+  const width = window.innerWidth;
+  console.log(width)
+  const breakpoint = 767;
+
+
   const [result, setResult] = useState([]);
   function contactData(e) {
     e.preventDefault();
@@ -34,11 +40,19 @@ const Contact = () => {
         resp.json().then((res) => {
           setResult(res);
           if (res.result == false) {
+            if(width < breakpoint){
             window.scrollTo({
-              top: 300,
+              top: 600,
               left: 0,
               behavior: 'smooth'
             })
+          }else{
+            window.scrollTo({
+              top: 400,
+              left: 0,
+              behavior: 'smooth'
+            })
+          }
           }
           else {
             showmsg();
