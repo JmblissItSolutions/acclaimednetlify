@@ -182,7 +182,7 @@ const MakeClaim = () => {
           <div className="form-box-wrap">
             <h6>Otherwise, please tell us about the issue(s) by filling out the form below a service fee will be required.</h6>
             {resultMsg != "" ? <p className="contact-error-msg">{resultMsg}</p> : null }
-            {errmsg == "Failed to fetch" ? <p className="contact-error-msg">You Have Network Issue Please Check Your Internet Connection</p> : null}
+            {errmsg == "Failed to fetch" ? <p className="contact-error-msg">You Have Network Issue Please Check Your Internet Connection</p> : errmsg}
             {/* {res == false ? <p className="contact-error-msg">{res}</p> : null} */}
             <div className="form">
               <form>

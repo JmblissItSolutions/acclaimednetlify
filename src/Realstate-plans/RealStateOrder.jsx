@@ -215,7 +215,7 @@ const RealStateOrder = () => {
                         </div>
                     </div>
                     <div>
-                        {response &&
+                        {response ?
                             <div className="warranty_order">
                                 <span>This home warranty order is for a:</span>
                                 {quesList.map(qus => (
@@ -254,7 +254,8 @@ const RealStateOrder = () => {
                                         }
                                     </div>
                                 ))}
-                            </div>
+                            </div> 
+                            : <div className="error-msg">You have network issue please check your internet connection</div>
                         }
                     </div>
                     {/* <div className="order_flex">
